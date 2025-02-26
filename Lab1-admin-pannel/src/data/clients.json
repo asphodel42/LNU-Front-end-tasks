@@ -1,5 +1,6 @@
 [
   {
+    "id": 1,
     "photo": "https://randomuser.me/api/portraits/men/1.jpg",
     "name": "John",
     "surname": "Doe",
@@ -11,6 +12,7 @@
     "agreement": true
   },
   {
+    "id": 2,
     "photo": "https://randomuser.me/api/portraits/women/2.jpg",
     "name": "Jane",
     "surname": "Smith",
@@ -22,6 +24,7 @@
     "agreement": false
   },
   {
+    "id": 3,
     "photo": "https://randomuser.me/api/portraits/men/3.jpg",
     "name": "Michael",
     "surname": "Brown",
@@ -33,6 +36,7 @@
     "agreement": true
   },
   {
+    "id": 4,
     "photo": "https://randomuser.me/api/portraits/women/4.jpg",
     "name": "Emily",
     "surname": "Davis",
@@ -44,6 +48,7 @@
     "agreement": true
   },
   {
+    "id": 5,
     "photo": "https://randomuser.me/api/portraits/men/5.jpg",
     "name": "David",
     "surname": "Wilson",
@@ -55,6 +60,7 @@
     "agreement": false
   },
   {
+    "id": 6,
     "photo": "https://randomuser.me/api/portraits/women/6.jpg",
     "name": "Sophia",
     "surname": "Miller",
