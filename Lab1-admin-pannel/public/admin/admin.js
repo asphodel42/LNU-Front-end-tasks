@@ -2,7 +2,7 @@
 function createUserCard(user) {
   const userCard = document.createElement('div');
   userCard.classList.add('user-card');
-  userCard.dataset.userId = user.id; // Add the user ID to the card
+  userCard.dataset.userId = user.id;
 
   userCard.innerHTML = `
     <div class="user-info">
@@ -30,7 +30,7 @@ function createUserCard(user) {
 }
 
 // Function to set up event listeners for buttons
-function setupButtonListeners(container) {
+function moreInfoBtn(container) {
   const cardMoreBtns = container.querySelectorAll('.btn-more');
   cardMoreBtns.forEach(btn => {
     btn.addEventListener('click', () => {
@@ -40,33 +40,26 @@ function setupButtonListeners(container) {
   });
 }
 
-function deleteUserCard(container) {
+function deleteUserBtn(container) {
   const cardDelBtns = container.querySelectorAll('.btn-del');
   cardDelBtns.forEach(btn => {
     btn.addEventListener('click', () => {
       const card = btn.closest('.user-card');
-      const userId = card.dataset.userId; // Get the user ID from the card
-
+      const userId = card.dataset.userId;
       if (confirm('Are you sure you want to delete this user?')) {
         // Send a request to the server to delete the user
         fetch(`/delete-user/${userId}`, {
           method: 'DELETE',
         })
           .then(response => {
-            if (!response.ok) {
-              throw new Error('Failed to delete user');
-            }
+            if (!response.ok) {throw new Error('Failed to delete user');}
             else{
               card.remove();
               return response.json();
             }
           })
-          .then(data => {
-            console.log('User deleted successfully:', data);
-          })
-          .catch(error => {
-            console.error('Error deleting user:', error);
-          });
+          .then(data => {console.log('User deleted successfully:', data);})
+          .catch(error => {console.error('Error deleting user:', error);});
       }
     });
   });
@@ -83,7 +76,7 @@ fetch('/src/data/clients.json')
       container.appendChild(userCard);
     });
 
-    setupButtonListeners(container);
-    deleteUserCard(container);
+    moreInfoBtn(container);
+    deleteUserBtn(container);
   })
   .catch(error => console.error('Error loading JSON:', error));

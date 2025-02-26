@@ -1,6 +1,6 @@
 const express = require('express');
 const path = require('path');
-const fs = require('fs').promises; // Use fs.promises for async file operations
+const fs = require('fs').promises;
 const app = express();
 
 const localhost = '127.0.0.1';
@@ -25,7 +25,7 @@ app.get('/admin', (req, res) => {
 
 // DELETE endpoint to handle user deletion
 app.delete('/delete-user/:userId', async (req, res) => {
-  const userId = parseInt(req.params.userId); // Get the user ID from the URL
+  const userId = parseInt(req.params.userId);
 
   if (isNaN(userId)) {
     return res.status(400).json({ error: 'Invalid user ID' });
@@ -36,16 +36,13 @@ app.delete('/delete-user/:userId', async (req, res) => {
     const data = await fs.readFile(path.join(__dirname, 'src/data/clients.json'), 'utf8');
     const users = JSON.parse(data);
 
-    // Find the index of the user to delete
     const userIndex = users.findIndex(user => user.id === userId);
 
     if (userIndex === -1) {
       return res.status(404).json({ error: 'User not found' });
     }
-    // Remove the user from the array
     users.splice(userIndex, 1);
 
-    // Write the updated users back to the JSON file
     await fs.writeFile(
       path.join(__dirname, 'src/data/clients.json'),
       JSON.stringify(users, null, 2),
