@@ -9,7 +9,7 @@ const port = 3000;
 // Middleware to serve static files
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/src/data', express.static(path.join(__dirname, 'src/data')));
-
+app.use(express.urlencoded({ extended: true }));
 // Middleware to parse JSON request bodies
 app.use(express.json());
 
@@ -26,20 +26,35 @@ app.get('/admin', (req, res) => {
 // POST endpoint to add a new user
 app.post('/add-user', async (req, res) => {
   try {
-    const newUser = req.body;
+    const { photo, name, surname, email, phone, dob, gender, country, agreement } = req.body;
+    const newUser = {
+      id: 1,
+      photo: req.body.photo || '',
+      name: req.body.name || '',
+      surname: req.body.surname || '',
+      email: req.body.email || '',
+      phone: req.body.phone || '',
+      dob: req.body.dob || '',
+      gender: req.body.gender || '',
+      country: req.body.country || '',
+      agreement: req.body.agreement === 'on',
+    };
 
-    const data = await fs.readFile('src/data/clients.json', 'utf8');
+    const data = await fs.readFile(path.join(__dirname, 'src/data/clients.json'), 'utf8');
     let users = JSON.parse(data);
 
     newUser.id = users.length > 0 ? users[users.length - 1].id + 1 : 1;
-
     users.push(newUser);
-    await fs.writeFile('src/data/clients.json', JSON.stringify(users, null, 2));
+    await fs.writeFile(
+      path.join(__dirname, 'src/data/clients.json'),
+      JSON.stringify(users, null, 2),
+      'utf8'
+    );
 
-    res.json({ message: 'User added successfully', user: newUser });
+    res.json({ message: `User added successfully` });
   } catch (error) {
     console.error('Error adding user:', error);
-    res.status(500).json({ error: 'Server error' });
+    res.status(500).json({ error: 'Failed to add user' });
   }
 });
 
