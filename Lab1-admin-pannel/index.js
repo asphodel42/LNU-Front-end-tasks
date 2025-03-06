@@ -26,7 +26,6 @@ app.get('/admin', (req, res) => {
 // POST endpoint to add a new user
 app.post('/add-user', async (req, res) => {
   try {
-    const { photo, name, surname, email, phone, dob, gender, country, agreement } = req.body;
     const newUser = {
       id: 1,
       photo: req.body.photo || '',
@@ -51,7 +50,7 @@ app.post('/add-user', async (req, res) => {
       'utf8'
     );
 
-    res.json({ message: `User added successfully` });
+    res.redirect('/')
   } catch (error) {
     console.error('Error adding user:', error);
     res.status(500).json({ error: 'Failed to add user' });

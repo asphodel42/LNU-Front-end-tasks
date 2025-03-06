@@ -12,7 +12,7 @@
             <div class="page-form-row form-row-hd">
                 <h1>Fill out the form, please</h1>
             </div>
-            <form class="client-form" action="/add-user" method="POST">
+            <form class="client-form" action="/add-user" method="POST" onsubmit="return showMessage()">
                 <div class="form-group">
                     <label for="photo">Photo URL</label>
                     <input type="text" id="photo" name="photo">
@@ -57,5 +57,11 @@
             </form>
         </section>
     </main>
+    <script>
+        function showMessage() {
+            alert("User added successfully!");
+            return true;
+        }
+    </script>
 </body>
 </html>
