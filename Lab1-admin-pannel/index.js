@@ -23,6 +23,26 @@ app.get('/admin', (req, res) => {
   res.sendFile(path.join(__dirname, '/public/admin/admin.html'));
 });
 
+// POST endpoint to add a new user
+app.post('/add-user', async (req, res) => {
+  try {
+    const newUser = req.body;
+
+    const data = await fs.readFile('src/data/clients.json', 'utf8');
+    let users = JSON.parse(data);
+
+    newUser.id = users.length > 0 ? users[users.length - 1].id + 1 : 1;
+
+    users.push(newUser);
+    await fs.writeFile('src/data/clients.json', JSON.stringify(users, null, 2));
+
+    res.json({ message: 'User added successfully', user: newUser });
+  } catch (error) {
+    console.error('Error adding user:', error);
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
 // DELETE endpoint to handle user deletion
 app.delete('/delete-user/:userId', async (req, res) => {
   const userId = parseInt(req.params.userId);
@@ -32,10 +52,8 @@ app.delete('/delete-user/:userId', async (req, res) => {
   }
 
   try {
-    // Read the current users from the JSON file
     const data = await fs.readFile(path.join(__dirname, 'src/data/clients.json'), 'utf8');
     const users = JSON.parse(data);
-
     const userIndex = users.findIndex(user => user.id === userId);
 
     if (userIndex === -1) {
@@ -49,7 +67,6 @@ app.delete('/delete-user/:userId', async (req, res) => {
       'utf8'
     );
 
-    // Send a success response
     res.json({ message: `User with id ${userId} deleted successfully` });
   } catch (error) {
     console.error('Error deleting user:', error);
