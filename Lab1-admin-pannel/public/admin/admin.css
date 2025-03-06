@@ -104,3 +104,56 @@
     justify-content: center;
     gap: 10px;
 }
+
+
+
+.user-edit-form-ct {
+    display: none;
+    width: 80%;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 0;
+    background: #cecece;
+    position: fixed;
+    top: 120px;
+    border-radius: 20px;
+}
+.user-edit-form-ct.active{
+    display: flex;
+}
+
+.user-edit-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    padding: 0 30px;
+}
+.edit-field {
+    display: flex;
+    justify-content: space-between;
+    width: 300px;
+    font-size: 20px;
+}
+.edit-field input{
+    font-size: 16px;
+}
+
+.edit-form-btns {
+    display: flex;
+    position: absolute;
+    top: 40px;
+    right: 20px;
+    gap: 20px;
+}
+.edit-form-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: auto;
+}
+.edit-form-btn svg{
+    width: 100%;
+    height: 100%;
+}
