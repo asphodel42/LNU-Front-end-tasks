@@ -57,6 +57,28 @@ app.delete('/delete-user/:userId', async (req, res) => {
   }
 });
 
+app.put('/update-user/:id', async (req, res) => {
+  try {
+    const userId = parseInt(req.params.id);
+    const updatedUser = req.body;
+
+    const data = await fs.readFile('src/data/clients.json', 'utf8');
+    let users = JSON.parse(data);
+
+    const userIndex = users.findIndex(user => user.id == userId);
+    if (userIndex === -1) return res.status(404).json({ error: 'User not found' });
+
+    updatedUser.photo = users[userIndex].photo;
+
+    users[userIndex] = { ...users[userIndex], ...updatedUser };
+    await fs.writeFile('src/data/clients.json', JSON.stringify(users, null, 2));
+
+    res.json({ message: 'User updated successfully', user: users[userIndex] });
+  } catch (error) {
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
 // Start the server
 app.listen(port, localhost, () => {
   console.log(`Server is running on http://${localhost}:${port}`);

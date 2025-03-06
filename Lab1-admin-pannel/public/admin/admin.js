@@ -65,6 +65,97 @@ function deleteUserBtn(container) {
   });
 }
 
+function editFormOpen(users) {
+  const editFormContainer = document.querySelector('.user-edit-form-ct');
+  const editUserBtns = document.querySelectorAll('.btn-edit');
+
+  editUserBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (!editFormContainer.classList.contains('active')) {
+        editFormContainer.classList.add('active');
+      }
+
+      let userId = btn.closest('.user-card').getAttribute('data-user-id');
+      editFormContainer.setAttribute('data-user-id', userId);
+      
+      console.log(userId);
+
+      const user = users.find(user => user.id == userId);
+      if (user) {
+        document.querySelector('#user-name').value = user.name;
+        document.querySelector('#user-surname').value = user.surname;
+        document.querySelector('#user-email').value = user.email;
+        document.querySelector('#user-phone').value = user.phone;
+        document.querySelector('#user-dob').value = user.dob;
+        document.querySelector('#user-gender').value = user.gender;
+        document.querySelector('#user-country').value = user.country;
+        document.querySelector('#user-agreement').checked = user.agreement;
+      } else {
+        console.error('User not found');
+      }
+    });
+  });
+}
+
+function editFormSave(){
+  const saveBtn = document.querySelector('.edit-btn-save'); 
+  const editFormContainer = document.querySelector('.user-edit-form-ct');
+
+  saveBtn.addEventListener('click', () => {
+    let userId = editFormContainer.getAttribute('data-user-id');
+    console.log("Clicked")
+
+    const updatedUser = {
+      id: parseInt(userId),
+      name: document.querySelector('#user-name').value.trim(),
+      surname: document.querySelector('#user-surname').value.trim(),
+      email: document.querySelector('#user-email').value.trim(),
+      phone: document.querySelector('#user-phone').value.trim(),
+      dob: document.querySelector('#user-dob').value.trim(),
+      gender: document.querySelector('#user-gender').value,
+      country: document.querySelector('#user-country').value.trim(),
+      agreement: document.querySelector('#user-agreement').checked
+    };
+
+    fetch(`/update-user/${userId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(updatedUser)
+    })
+    .then(response => {
+      if (!response.ok) throw new Error('Failed to update user');
+      return response.json();
+    })
+    .then(data => {
+      console.log('User updated successfully:', data);
+
+      const userCard = document.querySelector(`.user-card[data-user-id='${userId}']`);
+      if (userCard) {
+        userCard.querySelector('.user-name p').textContent = `${updatedUser.name} ${updatedUser.surname}`;
+        userCard.querySelector('.user-email p').textContent = `Email: ${updatedUser.email}`;
+        userCard.querySelector('.user-phone p').textContent = `Phone: ${updatedUser.phone}`;
+        userCard.querySelector('.user-dob p').textContent = `Birthday: ${updatedUser.dob}`;
+        userCard.querySelector('.user-gener p').textContent = `Gender: ${updatedUser.gender}`;
+        userCard.querySelector('.user-country p').textContent = `Country: ${updatedUser.country}`;
+        userCard.querySelector('.user-agree p').textContent = `Agreement: ${updatedUser.agreement ? 'Yes' : 'No'}`;
+      }
+
+      editFormContainer.classList.remove('active');
+    })
+    .catch(error => console.error('Error updating user:', error));
+  });
+}
+
+function editFormExit(){
+  const editFormContainer = document.querySelector('.user-edit-form-ct');
+  const editUserBtnExit = document.querySelector('.edit-btn-exit');
+  editUserBtnExit.addEventListener('click', () => {
+    editFormContainer.classList.remove('active');
+  })
+}
+
 // Fetch data and render user cards
 fetch('/src/data/clients.json')
   .then(response => response.json())
@@ -78,5 +169,8 @@ fetch('/src/data/clients.json')
 
     moreInfoBtn(container);
     deleteUserBtn(container);
+    editFormOpen(users)
+    editFormSave();
+    editFormExit();
   })
   .catch(error => console.error('Error loading JSON:', error));
