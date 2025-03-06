@@ -1,0 +1,74 @@
+[
+  {
+    "id": 1,
+    "photo": "https://randomuser.me/api/portraits/men/1.jpg",
+    "name": "John",
+    "surname": "Doe",
+    "email": "john.doe@example.com",
+    "phone": "+1234567890",
+    "dob": "1990-05-15",
+    "gender": "Male",
+    "country": "USA",
+    "agreement": true
+  },
+  {
+    "id": 2,
+    "photo": "https://randomuser.me/api/portraits/women/2.jpg",
+    "name": "Jane",
+    "surname": "Smith",
+    "email": "jane.smith@example.com",
+    "phone": "+1987654321",
+    "dob": "1985-08-25",
+    "gender": "Female",
+    "country": "Canada",
+    "agreement": false
+  },
+  {
+    "id": 3,
+    "photo": "https://randomuser.me/api/portraits/men/3.jpg",
+    "name": "Michael",
+    "surname": "Brown",
+    "email": "michael.brown@example.com",
+    "phone": "+1122334455",
+    "dob": "1992-11-30",
+    "gender": "Male",
+    "country": "UK",
+    "agreement": true
+  },
+  {
+    "id": 4,
+    "photo": "https://randomuser.me/api/portraits/women/4.jpg",
+    "name": "Emily",
+    "surname": "Davis",
+    "email": "emily.davis@example.com",
+    "phone": "+1555666777",
+    "dob": "1998-07-12",
+    "gender": "Female",
+    "country": "Australia",
+    "agreement": true
+  },
+  {
+    "id": 5,
+    "photo": "https://randomuser.me/api/portraits/men/5.jpg",
+    "name": "David",
+    "surname": "Wilson",
+    "email": "david.wilson@example.com",
+    "phone": "+1444555666",
+    "dob": "1980-03-20",
+    "gender": "Male",
+    "country": "Germany",
+    "agreement": false
+  },
+  {
+    "id": 6,
+    "photo": "https://randomuser.me/api/portraits/women/6.jpg",
+    "name": "Sophia",
+    "surname": "Miller",
+    "email": "sophia.miller@example.com",
+    "phone": "+1777888999",
+    "dob": "1995-12-05",
+    "gender": "Female",
+    "country": "France",
+    "agreement": true
+  }
+]
