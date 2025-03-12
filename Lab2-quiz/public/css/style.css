@@ -1,0 +1,16 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+.quiz-hd{
+    display: flex;
+    width: calc(100% - 10px*2);
+    align-items: center;
+    justify-content: center;
+    background-color: #b3b3b4;
+    padding: 20px 10px;
+}
+.quiz-hd h1{
+    font-size: 50px;
+    color: #018307;
+}
