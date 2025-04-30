@@ -19,7 +19,7 @@
       { "text": "JavaScript", "is_correct": true },
       { "text": "Python", "is_correct": false }
     ],
-    "image": "images/question2.jpg"
+    "image": "images/question2.svg"
   },
   {
     "id": 3,
@@ -30,7 +30,7 @@
       { "text": "CO2", "is_correct": false },
       { "text": "H2", "is_correct": false }
     ],
-    "image": "images/question3.jpg"
+    "image": "images/question3.svg"
   },
   {
     "id": 4,
@@ -41,7 +41,7 @@
       { "text": "8", "is_correct": false },
       { "text": "16", "is_correct": false }
     ],
-    "image": "images/question4.jpg"
+    "image": "images/question4.svg"
   },
   {
     "id": 5,
@@ -52,6 +52,6 @@
       { "text": "Nikola Tesla", "is_correct": false },
       { "text": "Marie Curie", "is_correct": false }
     ],
-    "image": "images/question5.jpg"
+    "image": "images/question5.svg"
   }
 ]
