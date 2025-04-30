@@ -1,0 +1,57 @@
+[
+  {
+    "id": 1,
+    "question": "What is the capital of France?",
+    "answers": [
+      { "text": "Berlin", "is_correct": false },
+      { "text": "Madrid", "is_correct": false },
+      { "text": "Paris", "is_correct": true },
+      { "text": "Rome", "is_correct": false }
+    ],
+    "image": "images/question1.svg"
+  },
+  {
+    "id": 2,
+    "question": "Which programming language is primarily used for web development?",
+    "answers": [
+      { "text": "C", "is_correct": false },
+      { "text": "Java", "is_correct": false },
+      { "text": "JavaScript", "is_correct": true },
+      { "text": "Python", "is_correct": false }
+    ],
+    "image": "images/question2.svg"
+  },
+  {
+    "id": 3,
+    "question": "What is the chemical symbol for water?",
+    "answers": [
+      { "text": "H2O", "is_correct": true },
+      { "text": "O2", "is_correct": false },
+      { "text": "CO2", "is_correct": false },
+      { "text": "H2", "is_correct": false }
+    ],
+    "image": "images/question3.svg"
+  },
+  {
+    "id": 4,
+    "question": "What is the square root of 16?",
+    "answers": [
+      { "text": "2", "is_correct": false },
+      { "text": "4", "is_correct": true },
+      { "text": "8", "is_correct": false },
+      { "text": "16", "is_correct": false }
+    ],
+    "image": "images/question4.svg"
+  },
+  {
+    "id": 5,
+    "question": "Who developed the theory of relativity?",
+    "answers": [
+      { "text": "Isaac Newton", "is_correct": false },
+      { "text": "Albert Einstein", "is_correct": true },
+      { "text": "Nikola Tesla", "is_correct": false },
+      { "text": "Marie Curie", "is_correct": false }
+    ],
+    "image": "images/question5.svg"
+  }
+]
