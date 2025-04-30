@@ -1,12 +1,39 @@
+// Object to store user answers (questionId: answer)
+let userAnswers = JSON.parse(localStorage.getItem("userAnswers") || "{}");
+// Track the highest question ID answered
+let lastAnsweredQuestionId = parseInt(
+  localStorage.getItem("lastAnsweredQuestionId") || "0"
+);
+
+// Function to update quiz-op button states based on last answered question
+function updateQuizOpButtons() {
+  document.querySelectorAll(".quiz-op").forEach((btn) => {
+    const questionId = parseInt(btn.getAttribute("btn_id"));
+    if (questionId <= lastAnsweredQuestionId + 1) {
+      btn.classList.remove("disabled");
+      btn.style.pointerEvents = "auto";
+      btn.style.opacity = "1";
+    } else {
+      btn.classList.add("disabled");
+      btn.style.pointerEvents = "none";
+      btn.style.opacity = "0.5";
+    }
+  });
+}
+
+// Initialize quiz-op buttons and event listeners
 document.querySelectorAll(".quiz-op").forEach((btn) => {
   btn.addEventListener("click", () => {
     const questionId = btn.getAttribute("btn_id");
-    loadQuestion(questionId);
-    console.log(questionId);
+    // Only allow clicking if questionId is accessible
+    if (parseInt(questionId) <= lastAnsweredQuestionId + 1) {
+      loadQuestion(questionId);
+      console.log(questionId);
+    }
   });
 });
 
-// Функція для завантаження питання
+// Function to load a question
 function loadQuestion(questionId) {
   fetch(`/quiz/question/${questionId}`)
     .then((response) => response.json())
@@ -21,11 +48,14 @@ function loadQuestion(questionId) {
         div.classList.add("quiz-btn");
         div.classList.add(`quiz-btn-${index + 1}`);
         const requiredAttribute = index === 0 ? "required" : "";
-        div.innerHTML = `<label><input type="radio" name="answer" value="${answer.text}" ${requiredAttribute}> ${answer.text}</label>`;
+        // Check if this answer was previously selected
+        const isChecked =
+          userAnswers[questionId] === answer.text ? "checked" : "";
+        div.innerHTML = `<label><input type="radio" name="answer" value="${answer.text}" ${requiredAttribute} ${isChecked}> ${answer.text}</label>`;
         answersContainer.appendChild(div);
       });
 
-      // Активуємо кнопку при виборі відповіді
+      // Enable submit button on answer selection
       const radioButtons = document.querySelectorAll('input[name="answer"]');
       radioButtons.forEach((radio) => {
         radio.addEventListener("change", () => {
@@ -33,22 +63,22 @@ function loadQuestion(questionId) {
         });
       });
 
-      // Скидаємо кнопку до неактивного стану при завантаженні нового питання
-      document.getElementById("submit-btn").disabled = true;
+      // Disable submit button by default, unless an answer is already selected
+      document.getElementById("submit-btn").disabled = !userAnswers[questionId];
 
       document.getElementById("question-number").value = questionId;
     })
     .catch((error) => console.log("Error loading question:", error));
 }
 
-// Функція для відображення результатів при завантаженні сторінки
+// Function to display results on page load
 function displayResultsOnLoad() {
   const lastResult = JSON.parse(localStorage.getItem("lastResult") || "{}");
   const penultimateResult = JSON.parse(
     localStorage.getItem("penultimateResult") || "{}"
   );
 
-  // Оновлюємо останній результат
+  // Update last result
   if (lastResult.score !== undefined) {
     document.querySelector(".last-res-right").innerText = lastResult.score;
     document.querySelector(".last-res-all").innerText = lastResult.total;
@@ -57,7 +87,7 @@ function displayResultsOnLoad() {
     document.querySelector(".last-res-all").innerText = "5";
   }
 
-  // Оновлюємо передостанній результат
+  // Update penultimate result
   if (penultimateResult.score !== undefined) {
     document.querySelector(".penultimate-res-right").innerText =
       penultimateResult.score;
@@ -69,7 +99,7 @@ function displayResultsOnLoad() {
   }
 }
 
-// Обробка відправки форми
+// Handle form submission
 document.getElementById("quiz-form").addEventListener("submit", (event) => {
   event.preventDefault();
 
@@ -81,7 +111,18 @@ document.getElementById("quiz-form").addEventListener("submit", (event) => {
     return;
   }
 
-  // Надсилаємо відповідь на сервер
+  // Store the answer
+  userAnswers[questionId] = selectedAnswer.value;
+  localStorage.setItem("userAnswers", JSON.stringify(userAnswers));
+
+  // Update last answered question ID
+  if (questionId > lastAnsweredQuestionId) {
+    lastAnsweredQuestionId = questionId;
+    localStorage.setItem("lastAnsweredQuestionId", lastAnsweredQuestionId);
+    updateQuizOpButtons();
+  }
+
+  // Send answer to server
   fetch("/quiz", {
     method: "POST",
     headers: {
@@ -95,7 +136,7 @@ document.getElementById("quiz-form").addEventListener("submit", (event) => {
     .then((response) => response.json())
     .then((data) => {
       if (data.finished) {
-        // Зберігаємо поточний результат як передостанній у localStorage
+        // Save current result as penultimate in localStorage
         const currentResult = JSON.parse(
           localStorage.getItem("lastResult") || "{}"
         );
@@ -110,7 +151,7 @@ document.getElementById("quiz-form").addEventListener("submit", (event) => {
           );
         }
 
-        // Зберігаємо новий результат як останній у localStorage
+        // Save new result as last in localStorage
         localStorage.setItem(
           "lastResult",
           JSON.stringify({
@@ -120,11 +161,11 @@ document.getElementById("quiz-form").addEventListener("submit", (event) => {
           })
         );
 
-        // Оновлюємо відображення останнього результату
+        // Update last result display
         document.querySelector(".last-res-right").innerText = data.score;
         document.querySelector(".last-res-all").innerText = data.total;
 
-        // Оновлюємо відображення передостаннього результату
+        // Update penultimate result display
         const penultimateResult = JSON.parse(
           localStorage.getItem("penultimateResult") || "{}"
         );
@@ -138,10 +179,17 @@ document.getElementById("quiz-form").addEventListener("submit", (event) => {
           document.querySelector(".penultimate-res-all").innerText = "5";
         }
 
+        // Reset quiz state
+        userAnswers = {};
+        localStorage.setItem("userAnswers", JSON.stringify(userAnswers));
+        lastAnsweredQuestionId = 0;
+        localStorage.setItem("lastAnsweredQuestionId", lastAnsweredQuestionId);
+        updateQuizOpButtons();
+
         alert(`Quiz finished! Your score: ${data.score}/${data.total}`);
-        loadQuestion(1); // Повертаємося до першого питання
+        loadQuestion(1); // Return to first question
       } else {
-        // Завантажуємо наступне питання
+        // Load next question
         const nextQuestionId = questionId + 1;
         loadQuestion(nextQuestionId);
       }
@@ -149,8 +197,9 @@ document.getElementById("quiz-form").addEventListener("submit", (event) => {
     .catch((error) => console.log("Error submitting answer:", error));
 });
 
-// Викликаємо функцію для відображення результатів при завантаженні сторінки
+// Display results, load first question, and update button states on page load
 document.addEventListener("DOMContentLoaded", () => {
   displayResultsOnLoad();
-  loadQuestion(1); // Завантажуємо перше питання за замовчуванням
+  updateQuizOpButtons();
+  loadQuestion(1); // Load first question by default
 });
