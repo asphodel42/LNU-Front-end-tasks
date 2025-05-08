@@ -1,0 +1,122 @@
+[
+  {
+    "id": 1,
+    "name": "Smartphone X",
+    "description": "Latest generation smartphone with advanced camera system",
+    "price": 799.99,
+    "category": "Electronics",
+    "image": "images/smartphone-x.png",
+    "rating": 4.5,
+    "inStock": true
+  },
+  {
+    "id": 2,
+    "name": "Laptop Pro",
+    "description": "High-performance laptop for professionals and gamers",
+    "price": 1199.99,
+    "category": "Electronics",
+    "image": "images/laptop-pro.png",
+    "rating": 4.7,
+    "inStock": true
+  },
+  {
+    "id": 3,
+    "name": "Casual T-Shirt",
+    "description": "Comfortable cotton t-shirt for everyday wear",
+    "price": 19.99,
+    "category": "Clothing",
+    "image": "images/casual-tshirt.png",
+    "rating": 4.2,
+    "inStock": true
+  },
+  {
+    "id": 4,
+    "name": "Running Shoes",
+    "description": "Lightweight running shoes with excellent cushioning",
+    "price": 89.99,
+    "category": "Footwear",
+    "image": "images/running-shoes.png",
+    "rating": 4.4,
+    "inStock": true
+  },
+  {
+    "id": 5,
+    "name": "Coffee Maker",
+    "description": "Automatic coffee maker with timer function",
+    "price": 59.99,
+    "category": "Home",
+    "image": "images/coffee-maker.png",
+    "rating": 4.0,
+    "inStock": false
+  },
+  {
+    "id": 6,
+    "name": "Bluetooth Speaker",
+    "description": "Portable wireless speaker with deep bass",
+    "price": 49.99,
+    "category": "Electronics",
+    "image": "images/bluetooth-speaker.png",
+    "rating": 4.3,
+    "inStock": true
+  },
+  {
+    "id": 7,
+    "name": "Designer Watch",
+    "description": "Elegant watch with stainless steel band",
+    "price": 129.99,
+    "category": "Accessories",
+    "image": "images/designer-watch.png",
+    "rating": 4.6,
+    "inStock": true
+  },
+  {
+    "id": 8,
+    "name": "Yoga Mat",
+    "description": "Non-slip yoga mat for comfortable practice",
+    "price": 29.99,
+    "category": "Sports",
+    "image": "images/yoga-mat.png",
+    "rating": 4.1,
+    "inStock": true
+  },
+  {
+    "id": 9,
+    "name": "Gaming Console",
+    "description": "Next-gen gaming console with 4K capabilities",
+    "price": 499.99,
+    "category": "Electronics",
+    "image": "images/gaming-console.png",
+    "rating": 4.8,
+    "inStock": false
+  },
+  {
+    "id": 10,
+    "name": "Desk Lamp",
+    "description": "Adjustable LED desk lamp with multiple brightness levels",
+    "price": 35.99,
+    "category": "Home",
+    "image": "images/desk-lamp.png",
+    "rating": 4.2,
+    "inStock": true
+  },
+  {
+    "id": 11,
+    "name": "Backpack",
+    "description": "Durable backpack with laptop compartment",
+    "price": 45.99,
+    "category": "Accessories",
+    "image": "images/backpack.png",
+    "rating": 4.4,
+    "inStock": true
+  },
+  {
+    "id": 12,
+    "name": "Wireless Headphones",
+    "description": "Noise-cancelling wireless headphones",
+    "price": 159.99,
+    "category": "Electronics",
+    "image": "images/wireless-headphones.png",
+    "rating": 4.7,
+    "inStock": true
+  }
+]
