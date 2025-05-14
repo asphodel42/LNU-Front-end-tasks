@@ -1,0 +1,40 @@
+.square {
+  width: 80px;
+  height: 80px;
+  background: #fff;
+  border: 1px solid #999;
+  font-size: 36px;
+  font-weight: bold;
+  line-height: 80px;
+  margin: -1px -1px 0 0;
+  padding: 0;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.square:focus {
+  outline: none;
+}
+
+.square:hover {
+  background-color: #f0f0f0;
+}
+
+.winning {
+  background-color: #dff2bf;
+  color: #4f8a10;
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
